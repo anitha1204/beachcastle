@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userbeachcastleSchema = new mongoose.Schema({
-  username: { type: String, required: true },
+  userName: { type: String, required: true },
   mobile: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   enquiry: { type: String, required: true },

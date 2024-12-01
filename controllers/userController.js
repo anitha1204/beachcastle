@@ -16,18 +16,18 @@ const createTransporter = () => {
 // Controller to handle POST requests
 const postUserDatas = async (req, res) => {
     try {
-        const { username, mobile, email, enquiry } = req.body;
+        const { userName, mobile, email, enquiry } = req.body;
 
         if (!userName || !mobile || !email || !enquiry) {
             return res.status(400).json({ Error: "All fields are required." });
         }
 
-        const userData = new userbeachcastleDB({ username, mobile, email, enquiry });
+        const userData = new userbeachcastleDB({ userName, mobile, email, enquiry });
         await userData.save();
 
         // Send confirmation and notification emails
         await send(userName, mobile, email, enquiry);
-        await sendNotificationEmail(username, mobile, email, enquiry);
+        await sendNotificationEmail(userName, mobile, email, enquiry);
 
         res.status(201).json({ data: userData });
     } catch (error) {
@@ -54,14 +54,14 @@ const getUserDatas = async (req, res) => {
 };
 
 // Send confirmation email
-const send = async (username, mobile, email, enquiry) => {
+const send = async (userName, mobile, email, enquiry) => {
     try {
         const transporter = createTransporter();
         const mailOptions = {
             from: "theglasshouseecr@gmail.com",
             to: email,
             subject: 'Thank you for your form submission',
-            text: `Dear  Dear ${username},
+            text: `Dear  Dear ${userName},
 
                   Thank you for submitting the form. We have received the following details:
                   We appreciate your interest and will get back to you soon.
@@ -77,7 +77,7 @@ const send = async (username, mobile, email, enquiry) => {
 };
 
 // Send notification email to hotel
-const sendNotificationEmail = async (username, mobile, email, enquiry) => {
+const sendNotificationEmail = async (userName, mobile, email, enquiry) => {
     try {
         const transporter = createTransporter();
         const mailOptions = {
@@ -85,7 +85,7 @@ const sendNotificationEmail = async (username, mobile, email, enquiry) => {
             to: "theglasshouseecr@gmail.com", // Set in .env file
             subject: "New Room Booking Notification",
             text: `New room booking details:
-                   Name: ${username}
+                   Name: ${userName}
                    Email: ${email}
                   Phone Number: ${mobile}
                   Enquiry: ${enquiry}
