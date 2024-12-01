@@ -7,10 +7,8 @@ const createTransporter = () => {
     return nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            // user: "theglasshouseecr@gmail.com",
-            // pass: "oshl lblg clai kknr",
-            user: "selvam12042003@gmail.com",
-            pass: "jxjj csdq qked wrku",
+            user: "theglasshouseecr@gmail.com",
+            pass: "oshl lblg clai kknr",
         },
     });
 };
@@ -60,7 +58,7 @@ const send = async (userName, mobile, email, enquiry) => {
     try {
         const transporter = createTransporter();
         const mailOptions = {
-            from: "selvam12042003@gmail.com",
+            from: "theglasshouseecr@gmail.com",
             to: email,
             subject: 'Thank you for your form submission',
             text: `Dear  Dear ${userName},
@@ -83,8 +81,8 @@ const sendNotificationEmail = async (userName, mobile, email, enquiry) => {
     try {
         const transporter = createTransporter();
         const mailOptions = {
-            from: "selvam12042003@gmail.com",
-            to: "selvam12042003@gmail.com", // Set in .env file
+            from: "theglasshouseecr@gmail.com",
+            to: "theglasshouseecr@gmail.com", // Set in .env file
             subject: "New Room Booking Notification",
             text: `New room booking details:
                    Name: ${userName}
